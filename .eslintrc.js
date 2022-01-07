@@ -1,12 +1,14 @@
-// eslint-disable-next-line prettier/prettier
-// eslint-disable-next-line prettier/prettier
 module.exports = {
   root: true,
   env: {
     node: true,
     jest: true, //for test
   },
-  extends: ["plugin:vue/essential", "eslint:recommended", "prettier"],
+  extends: [
+    "plugin:vue/essential",
+    "eslint:recommended",
+    "prettier/recommended",
+  ],
   plugins: ["prettier"],
   parserOptions: {
     parser: "babel-eslint",
@@ -15,19 +17,19 @@ module.exports = {
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
     //.prettierrc 대신 eslintrc.js 안에 prettier 룰을 적는다: 충돌방지를 위해
-    "prettier/prettier": [
-      "warn",
+    "prettier/prettier": ["error",
       {
-        singleQuote: false,
+        singleQuote: true,
         semi: true,
         useTabs: false,
         tabWidth: 2,
-        trailingComma: "all",
+        trailingComma: 'all',
         printWidth: 80,
         bracketSpacing: true,
-        arrowParens: "avoid",
-        endOfLine: "auto",
-      },
+        arrowParens: 'avoid',
+        endOfLine: 'auto'
+      }
+
     ],
   },
   overrides: [
