@@ -21,15 +21,15 @@
 <script>
 export default {
   async asyncData({ store }) {
-    await store.dispatch('fetchCarts')
+    await store.dispatch('fetchCarts');
   },
 
   computed: {
     carts() {
-      return this.$store.state.carts
+      return this.$store.state.carts;
     },
   },
-}
+};
 </script>
 
 <style scoped>
