@@ -26,8 +26,8 @@
 
 <script>
 // import axios from 'axios'
-import SearchInput from '@/components/SearchInput.vue'
-import { fetchProducts, fetchProductsByKeyword } from '@/api/index'
+import SearchInput from '@/components/SearchInput.vue';
+import { fetchProducts, fetchProductsByKeyword } from '@/api/index';
 // import { debounce } from 'lodash'
 
 export default {
@@ -35,40 +35,40 @@ export default {
 
   async asyncData() {
     try {
-      const { data } = await fetchProducts()
+      const { data } = await fetchProducts();
       const items = data.map((item) => ({
         ...item,
         imageUrl: `${item.imageUrl}?random=${Math.random()}`,
-      }))
-      return { items }
+      }));
+      return { items };
     } catch (error) {
-      const items = []
-      return { items }
+      const items = [];
+      return { items };
     }
   },
 
   data() {
     return {
       inputText: '',
-    }
+    };
   },
 
   methods: {
     async filterItemsBySearchText() {
-      const { data } = await fetchProductsByKeyword(this.inputText)
+      const { data } = await fetchProductsByKeyword(this.inputText);
       this.items = data.map((item) => ({
         ...item,
         imageUrl: `${item.imageUrl}?random=${Math.random()}`,
-      }))
+      }));
     },
     routeToDetailPage(id) {
-      this.$router.push(`/product/${id}`)
+      this.$router.push(`/product/${id}`);
     },
     routeToCartPage() {
-      this.$router.push('/cart')
+      this.$router.push('/cart');
     },
   },
-}
+};
 </script>
 
 <style scoped>
