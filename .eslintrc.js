@@ -5,19 +5,20 @@ module.exports = {
     jest: true, //for test
   },
   extends: [
-    "plugin:vue/essential",
-    "eslint:recommended",
-    "prettier/recommended",
+    'plugin:vue/essential',
+    'eslint:recommended',
+    'plugin:nuxt/recommended',
   ],
-  plugins: ["prettier"],
+  plugins: ['prettier'],
   parserOptions: {
-    parser: "babel-eslint",
+    parser: 'babel-eslint',
   },
   rules: {
-    "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     //.prettierrc 대신 eslintrc.js 안에 prettier 룰을 적는다: 충돌방지를 위해
-    "prettier/prettier": ["error",
+    'prettier/prettier': [
+      'error',
       {
         singleQuote: true,
         semi: true,
@@ -27,16 +28,15 @@ module.exports = {
         printWidth: 80,
         bracketSpacing: true,
         arrowParens: 'avoid',
-        endOfLine: 'auto'
-      }
-
+        endOfLine: 'auto',
+      },
     ],
   },
   overrides: [
     {
       files: [
-        "**/__tests__/*.{j,t}s?(x)",
-        "**/tests/unit/**/*.spec.{j,t}s?(x)",
+        '**/__tests__/*.{j,t}s?(x)',
+        '**/tests/unit/**/*.spec.{j,t}s?(x)',
       ],
       env: {
         jest: true,
