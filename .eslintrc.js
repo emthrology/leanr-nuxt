@@ -4,7 +4,11 @@ module.exports = {
     node: true,
     jest: true, //for test
   },
-  extends: ['plugin:vue/essential', 'eslint:recommended'],
+  extends: [
+    'plugin:vue/essential',
+    'eslint:recommended',
+    'plugin:nuxt/recommended',
+  ],
   plugins: ['prettier'],
   parserOptions: {
     parser: 'babel-eslint',
