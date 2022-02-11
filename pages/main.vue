@@ -19,8 +19,12 @@ export default {
   //4.pages폴더 안에서만 적용되는 프로퍼티이다.(주의!)
   async asyncData(context) {
     try {
-      const res = await axios.get('http://localhost:3000/productss');
-      const products = res.data;
+      const res = await axios.get('http://localhost:3000/products');
+      // eslint-disable-next-line prettier/prettier
+      const products = res.data.map((product) => ({
+        ...product,
+        imageUrl: `${product.imageUrl}?random=${Math.random()}`,
+      }));
       return { products };
     } catch (error) {
       console.log(error);
