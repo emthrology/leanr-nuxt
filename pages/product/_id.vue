@@ -22,6 +22,7 @@
 import { createCartItem, fetchProductById } from '~/api';
 
 export default {
+  //param destructuring - context.params
   async asyncData({ params }) {
     const response = await fetchProductById(params.id);
     return { product: response.data };
