@@ -41,7 +41,11 @@ export default {
   methods: {
     //param destructuring - product.id
     moveToDetailPage({ id }) {
-      console.log({ id });
+      //pages/product/_id.vue 로 라우팅
+
+      //In order to have dynamic route in Nuxt.js,
+      //we should use Underline (_) before the dynamic name.
+      this.$router.push(`product/${id}`);
     },
   },
   //async created 의 문제점 : 데이터 불러오는 동안 빈 상태로 화면을 놔둠

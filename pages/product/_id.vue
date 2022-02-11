@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- nuxt.js dynamic route page -->
     <div class="container">
       <div class="main-panel">
         <img
@@ -25,7 +26,6 @@ export default {
     const response = await fetchProductById(params.id);
     return { product: response.data };
   },
-
   methods: {
     async addToCart() {
       await createCartItem(this.product);
