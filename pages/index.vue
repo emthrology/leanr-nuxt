@@ -1,106 +1,59 @@
 <template>
   <div class="app">
+    <div>
+      <input type="text" />
+    </div>
     <main>
-      <SearchInput
-        v-model="inputText"
-        @search="filterItemsBySearchText"
-      ></SearchInput>
-      <ul>
-        <li
-          v-for="item in items"
-          :key="item.id"
-          class="item flex"
-          @click="routeToDetailPage(item.id)"
-        >
-          <img class="product-image" :src="item.imageUrl" alt="" />
-          <p>{{ item.name }}</p>
-          <span>{{ item.price }}</span>
-        </li>
-      </ul>
-      <div class="cart-wrapper">
-        <button class="btn" @click="routeToCartPage">장바구니 바로가기</button>
-      </div>
+      <ProductList :products="products" />
     </main>
   </div>
 </template>
 
 <script>
-// import axios from 'axios'
-import SearchInput from '@/components/SearchInput.vue';
-import { fetchProducts, fetchProductsByKeyword } from '@/api/index';
-// import { debounce } from 'lodash'
-
+import axios from 'axios';
+import ProductList from '@/components/ProductList.vue';
 export default {
-  components: { SearchInput },
-
-  async asyncData() {
+  components: {
+    ProductList,
+  },
+  //nuxt data feature - asyncData()
+  //1.async 기본 사용
+  //2.this - vm 바인딩 이전에 작동
+  //3.리턴값이 곧바로 data()처럼 작동
+  //4.pages폴더 안에서만 적용되는 프로퍼티이다.(주의!)
+  async asyncData(context) {
     try {
-      const { data } = await fetchProducts();
-      const items = data.map((item) => ({
-        ...item,
-        imageUrl: `${item.imageUrl}?random=${Math.random()}`,
+      const res = await axios.get('http://localhost:3000/products');
+      // eslint-disable-next-line prettier/prettier
+      const products = res.data.map((product) => ({
+        ...product,
+        imageUrl: `${product.imageUrl}?random=${Math.random()}`,
       }));
-      return { items };
+      return { products };
     } catch (error) {
-      const items = [];
-      return { items };
+      console.log(error);
+      context.error({
+        statudCode: error.response.status,
+        message: error.message,
+      });
     }
   },
-
-  data() {
-    return {
-      inputText: '',
-    };
-  },
-
-  methods: {
-    async filterItemsBySearchText() {
-      const { data } = await fetchProductsByKeyword(this.inputText);
-      this.items = data.map((item) => ({
-        ...item,
-        imageUrl: `${item.imageUrl}?random=${Math.random()}`,
-      }));
-    },
-    routeToDetailPage(id) {
-      this.$router.push(`/product/${id}`);
-    },
-    routeToCartPage() {
-      this.$router.push('/cart');
-    },
-  },
+  //async created 의 문제점 : 데이터 불러오는 동안 빈 상태로 화면을 놔둠
+  // async created() {
+  //   const res = await axios.get('http://localhost:3000/products');
+  //   console.log(res);
+  //   this.products = res.data;
+  // },
+  // data() {
+  //   return {
+  //     products: [],
+  //   };
+  // },
 };
 </script>
 
 <style scoped>
-.flex {
-  display: flex;
-  justify-content: center;
-}
-.item {
-  display: inline-block;
-  width: 400px;
-  height: 300px;
-  text-align: center;
-  margin: 0 0.5rem;
-  cursor: pointer;
-}
-.product-image {
-  width: 400px;
-  height: 250px;
-}
 .app {
   position: relative;
-}
-.cart-wrapper {
-  position: sticky;
-  float: right;
-  bottom: 50px;
-  right: 50px;
-}
-.cart-wrapper .btn {
-  display: inline-block;
-  height: 40px;
-  font-size: 1rem;
-  font-weight: 500;
 }
 </style>
