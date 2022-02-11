@@ -6,6 +6,7 @@
           :src="product.imageUrl"
           :alt="product.name"
           class="product-image"
+          @click="emitEvent(product)"
         />
         <p>{{ product.name }}</p>
         <span>{{ product.price }}</span>
@@ -20,6 +21,11 @@ export default {
     products: {
       type: Array,
       default: () => [],
+    },
+  },
+  methods: {
+    emitEvent(product) {
+      this.$emit('productClick', product);
     },
   },
 };

@@ -4,7 +4,7 @@
       <input type="text" />
     </div>
     <main>
-      <ProductList :products="products" />
+      <ProductList :products="products" @productClick="moveToDetailPage" />
     </main>
   </div>
 </template>
@@ -37,6 +37,12 @@ export default {
         message: error.message,
       });
     }
+  },
+  methods: {
+    //param destructuring - product.id
+    moveToDetailPage({ id }) {
+      console.log({ id });
+    },
   },
   //async created 의 문제점 : 데이터 불러오는 동안 빈 상태로 화면을 놔둠
   // async created() {
